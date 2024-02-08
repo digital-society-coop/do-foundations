@@ -1,17 +1,21 @@
 # do-foundations
 Foundations for DigitalOcean-based services
 
-This repository defines a `foundation` service whose purpose is to provide the necessary interfaces to seamlessly deploy other services to DigitalOcean.
+This repository defines a `do-foundations` service whose purpose is to provide the necessary interfaces to seamlessly deploy other services to DigitalOcean.
 
-In particular, an `<environment>` instance of `foundation` provides:
+In particular, an `<environment>` instance of `do-foundations` provides:
 
-- A `<environment>-foundation-terraform` DigitalOcean Spaces Object Storage bucket for Terraform state.
+- A `do-foundations-<environment>-terraform` DigitalOcean Spaces Object Storage bucket for Terraform state.
 
 ## Deployment
+
+### Automatic deployment
 
 The service is continuously deployed by GitHub Actions.
 
 ### Manual deployment
+
+Prefer to make changes via PR and continuous deployment, but manual deployment is possible if necessary.
 
 #### Prerequisites
 
@@ -59,3 +63,10 @@ The service is continuously deployed by GitHub Actions.
    ```sh
    ./deploy.sh '<env>'
    ```
+
+You can alternatively use the `terraform-env.sh` script to set up environment variables for working directly with Terraform:
+
+```sh
+eval "$(./terraform-env.sh do-foundations '<env>')"
+terraform ...
+```
