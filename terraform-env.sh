@@ -23,6 +23,7 @@ tfCliArgs=(
   '-input=false'
 )
 
+# shellcheck disable=SC2206
 tfCliArgsInit=(
   ${tfCliArgs[@]}
   "-backend-config=region=${AWS_REGION:-"$(aws configure get region)"}"
@@ -32,16 +33,18 @@ tfCliArgsInit=(
   '-reconfigure'
 )
 
+  # shellcheck disable=SC2206
 tfCliArgsPlan=(
   ${tfCliArgs[@]}
 )
 
+# shellcheck disable=SC2206
 tfCliArgsApply=(
   ${tfCliArgsPlan[@]}
   '-auto-approve'
 )
 
-echo "export TF_CLI_ARGS_init='${tfCliArgsInit[@]}'"
-echo "export TF_CLI_ARGS_plan='${tfCliArgsPlan[@]}'"
-echo "export TF_CLI_ARGS_apply='${tfCliArgsApply[@]}'"
+echo "export TF_CLI_ARGS_init='${tfCliArgsInit[*]}'"
+echo "export TF_CLI_ARGS_plan='${tfCliArgsPlan[*]}'"
+echo "export TF_CLI_ARGS_apply='${tfCliArgsApply[*]}'"
 echo "stateBucket=$stateBucket"

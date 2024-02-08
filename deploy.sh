@@ -18,6 +18,7 @@ echo >&2
 
 eval "$(./terraform-env.sh "$service" "$environment")"
 
+# shellcheck disable=SC2154
 echo -n "- Creating $stateBucket... " >&2
 if ! result="$(aws s3api create-bucket --bucket "$stateBucket" 2>&1)" ; then
   if [[ "$result" =~ BucketAlreadyExists ]]; then
