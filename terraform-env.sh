@@ -19,32 +19,11 @@ shift
 stateBucket="$service-$environment-terraform"
 stateKey="$service/$environment.tfstate"
 
-tfCliArgs=(
-  '-input=false'
-)
-
-# shellcheck disable=SC2206
 tfCliArgsInit=(
-  ${tfCliArgs[@]}
   "-backend-config=region=${AWS_REGION:-"$(aws configure get region)"}"
   "-backend-config=bucket=$stateBucket"
   "-backend-config=key=$stateKey"
-  '-lockfile=readonly'
-  '-reconfigure'
-)
-
-  # shellcheck disable=SC2206
-tfCliArgsPlan=(
-  ${tfCliArgs[@]}
-)
-
-# shellcheck disable=SC2206
-tfCliArgsApply=(
-  ${tfCliArgsPlan[@]}
-  '-auto-approve'
 )
 
 echo "export TF_CLI_ARGS_init='${tfCliArgsInit[*]}'"
-echo "export TF_CLI_ARGS_plan='${tfCliArgsPlan[*]}'"
-echo "export TF_CLI_ARGS_apply='${tfCliArgsApply[*]}'"
 echo "stateBucket=$stateBucket"
